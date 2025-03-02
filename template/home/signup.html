@@ -1,0 +1,214 @@
+{% extends "header/header.html" %}
+{% load static %}
+
+
+{% block title %}
+Create Account
+
+{% endblock  %}
+
+
+{% block content %}
+
+    <section class="log-reg register">
+        <div class="overlay">
+            <div class="container">
+                <div class="top-head-area">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-sm-5 col">
+                            <a class="back-home" href="{% url "home" %}">
+                                <img src="{% static 'assets/img/left-icon.png' %}" alt="image">
+                                Back To Paylio
+                            </a>
+                        </div>
+                        <div class="col-sm-5 col">
+                            <a href="{% url "home" %}">
+                                <img src="{% static 'assets/logo/logo.png' %}" alt="image" width="150px">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center">
+                  
+                    <div class="col-lg-12 col-md-7 z-1 text-center d-flex justify-content-center pb-120">
+                        <div class="form-box">
+                            <h4>Register with Paylio</h4>
+                            <p class="alr-acc dont-acc">Already have an account? <a href="">Log in now.</a></p>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="personal-tab" data-bs-toggle="tab"
+                                        data-bs-target="#personal" type="button" role="tab" aria-controls="personal"
+                                        aria-selected="true">Personal</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="business-tab" data-bs-toggle="tab" data-bs-target="#business"
+                                        type="button" role="tab" aria-controls="business"
+                                        aria-selected="false">Business</button>
+                                </li>
+                            </ul>
+                            <!-- Personal Account Form -->
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+                                    <form action="#" method="post" id="personal-form">
+                                        {% csrf_token %}
+
+                                        <input type="hidden" name="account_type" value="personal">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="single-input d-flex align-items-center">
+                                                    <input type="text" placeholder="username" name="username">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-6">
+                                                <div class="single-input d-flex align-items-center">
+                                                    <input type="text" placeholder="phone number" name="phone">
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="single-input d-flex align-items-center">
+                                                    <input type="email" placeholder="Email" name="email">
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div class="col-12">
+                                                <div class="single-input d-flex align-items-center">
+                                                    <input type="password" class="passInput" placeholder="Password" name="password">
+                                                    <img class="showPass" src="{% static 'assets/img/show-hide.png' %}" alt="image">
+                                                </div>
+
+
+                                                <div class="single-input d-flex align-items-center">
+                                                    <input type="password" class="passInput" placeholder="comfirm Password" name="password2">
+                                                    <img class="showPass" src="{% static 'assets/img/show-hide.png' %}" alt="image">
+                                                </div>
+                                            </div>
+
+
+                                            
+                                        </div>
+                                        <div class="remember-forgot d-flex justify-content-between">
+                                            <div class="form-group d-flex">
+                                                <div class="checkbox_wrapper" >
+                                                    <input class="check-box" id="check1" type="checkbox">
+                                                    <label></label>
+                                                </div>
+                                                <label for="check1"><span class="check_span">Remember Me</span></label>
+                                            </div>
+                                            <div class="forget-pw">
+                                                <a href="forgot-password.html">Forgot your password?</a>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="btn-area" id="btn-personal">
+                                            <button class="cmn-btn">
+                                                <span id="btn-text">Register Now</span> 
+                                                <span class="spinner-border" style="width: 2rem;height: 2rem;display: none;"></span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div class="bottom-area">
+                                        <div class="continue"><p>Or continue with</p></div>
+                                        <div class="login-with d-flex align-items-center">
+                                            <a href="javascript:void(0)"><img src="{% static 'assets/img/google.png' %}" alt="image"></a>
+                                            <a href="javascript:void(0)"><img src="{% static 'assets/img/fb.png' %}" alt="image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="privacy">
+                                        <p>By registering you accept our <a href="terms-conditions.html">Terms & Conditions</a> and <a href="privacy-policy.html">Privacy Policy</a></p>
+                                    </div>
+                                </div>
+
+                                <!-- Business Account Form -->
+                                <div class="tab-pane fade" id="business" role="tabpanel" aria-labelledby="business-tab">
+                                    <form action="#" method="post" id="business-form">
+                                        {% csrf_token %}
+                                        
+                                        <input type="hidden" name="account_type" value="business">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="single-input d-flex align-items-center">
+                                                    <input type="text" placeholder="username" name="username">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-6">
+                                                <div class="single-input d-flex align-items-center">
+                                                    <input type="text" placeholder="phone number" name="phone">
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="single-input d-flex align-items-center">
+                                                    <input type="email" placeholder="Email" name="email">
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div class="col-12">
+                                                <div class="single-input d-flex align-items-center">
+                                                    <input type="password" class="passInput" placeholder="Password" name="password">
+                                                    <img class="showPass" src="{% static 'assets/img/show-hide.png' %}" alt="image">
+                                                </div>
+
+
+                                                <div class="single-input d-flex align-items-center">
+                                                    <input type="password" class="passInput" placeholder="comfirm Password" name="password2">
+                                                    <img class="showPass" src="{% static 'assets/img/show-hide.png' %}" alt="image">
+                                                </div>
+                                            </div>
+
+
+                                            
+                                        </div>
+                                        <div class="remember-forgot d-flex justify-content-between">
+                                            <div class="form-group d-flex">
+                                                <div class="checkbox_wrapper" >
+                                                    <input class="check-box" id="check1" type="checkbox">
+                                                    <label></label>
+                                                </div>
+                                                <label for="check1"><span class="check_span">Remember Me</span></label>
+                                            </div>
+                                            <div class="forget-pw">
+                                                <a href="forgot-password.html">Forgot your password?</a>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="btn-area" id="btn-business">
+                                             <button class="cmn-btn">
+                                                <span id="btn-business-text">Register Now</span> 
+                                                <span class="spinner-border" style="width: 2rem;height: 2rem;display: none;"></span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div class="bottom-area">
+                                        <div class="continue"><p>Or continue with</p></div>
+                                        <div class="login-with d-flex align-items-center">
+                                            <a href="javascript:void(0)"><img src="{% static 'assets/img/google.png' %}" alt="image"></a>
+                                            <a href="javascript:void(0)"><img src="{% static 'assets/img/fb.png' %}" alt="image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="privacy">
+                                        <p>By registering you accept our <a href="terms-conditions.html">Terms & Conditions</a> and <a href="privacy-policy.html">Privacy Policy</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+
+{% endblock content %}

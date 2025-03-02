@@ -1,0 +1,66 @@
+{% extends "header/header.html" %} {% load static %} {% block title %} Create
+Account {% endblock %} {% block content %}
+
+<!-- Forgot Password In start -->
+<section class="log-reg forgot-pws">
+  <div class="overlay pb-120">
+    <div class="container">
+      <div class="top-head-area">
+        <div class="row d-flex align-items-center">
+          <div class="col-sm-5 col">
+            <a class="back-home" href="index.html">
+              <img src="{% static 'assets/img/left-icon.png' %}" alt="image" />
+              Back To Paylio
+            </a>
+          </div>
+          <div class="col-sm-5 col">
+            <a href="index.html">
+              <img src="{% static 'assets/img/logo.png' %}" alt="image" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <div class="form-box">
+            <div class="icon-area">
+              <img
+                src="{% static 'assets/img/forgot-password-Illus.png' %}"
+                alt="image"
+              />
+            </div>
+            <h4>OtP verifiy</h4>
+            <p>Enter otp sent to your email or phone number to continue</p>
+            <form action="#" method="POST" id="verify-form">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-12">
+                  <div class="single-input d-flex align-items-center">
+                    <input
+                      type="text"
+                      placeholder="Enter otp"
+                      name="otp_code"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="btn-area" id="btn-verify">
+                <button class="cmn-btn">
+                  <span id="verify-text">Verify Now</span>
+                  <span
+                    class="spinner-border"
+                    style="width: 2rem; height: 2rem; display: none"
+                  ></span>
+                </button>
+              </div>
+            </form>
+            <p class="back-login dont-acc">
+              Go back to <a href="login.html">Login</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

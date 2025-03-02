@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %} {% endblock title %}</title>
+
+    <link rel="shortcut icon" href="assets/img/fav.png" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/fontawesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/plugin/nice-select.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/plugin/slick.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/custom-family.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/plugin/magnific-popup.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/plugin/animate.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/style-rtl.min.css' %}"
+      id="rtl-stylesheet"
+      disabled
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"
+      integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    {% block content %} {% endblock %}
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"
+      integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/proper-min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/fontawesome.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/slick.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/plugin.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <!-- Custom Javascript  -->
+    <script src="{% static 'assets/customjs/register.js' %}"></script>
+    <script src="{% static 'assets/customjs/email_verify.js' %}"></script>
+  </body>
+</html>
