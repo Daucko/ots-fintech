@@ -1,4 +1,48 @@
-<!DOCTYPE html>
+{% extends "header/header.html" %} {% load static %} {% block title %} Enable
+2FA {% endblock %} {% block content %}
+
+<section class="log-reg">
+  <div class="overlay pb-120">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <div class="form-box">
+            <h4>Enable Two-Factor Authentication</h4>
+            <p class="mb-20">
+              Click the button below to enable 2FA and scan the QR code with
+              Google Authenticator.
+            </p>
+
+            <form id="enable-2fa-form" class="mt-20" method="post">
+              {% csrf_token %}
+              <button type="submit" class="cmn-btn" style="margin-top: 20px">
+                Enable 2FA
+              </button>
+            </form>
+
+            <div id="qr-code-container" style="display: none; margin-top: 20px">
+              <p>Scan the QR code with Google Authenticator:</p>
+              <img id="qr-code" src="" alt="QR Code" />
+              <button
+                id="verify-2fa-button"
+                style="margin-top: 20px"
+                class="cmn-btn"
+              >
+                Verify Code
+              </button>
+            </div>
+
+            <p id="error-message" class="text-danger"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{% static 'js/enable_2fa.js' %}"></script>
+
+{% endblock %} {% comment %} <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -21,16 +65,27 @@
     </style>
   </head>
   <body>
-    <h1>Enable 2FA</h1>
-    <button id="enable-2fa-button">Enable 2FA</button>
-    <div id="qr-code-container" style="display: none">
-      <p>Scan the QR code with Google Authenticator:</p>
-      <img id="qr-code" src="" alt="QR Code" />
-      <button id="verify-2fa-button" style="margin-top: 20px">
-        Verify Code
-      </button>
+    <div class="form-box">
+      <h1>Enable 2FA</h1>
+      <button id="enable-2fa-button">Enable 2FA</button>
+      <div id="qr-code-container" style="display: none">
+        <p>Scan the QR code with Google Authenticator:</p>
+        <img id="qr-code" src="" alt="QR Code" />
+        <button id="verify-2fa-button" style="margin-top: 20px">
+          Verify Code
+        </button>
+        <div class="btn-area" id="btn-enable-2fa">
+          <button class="cmn-btn" id="enable-2fa-button">
+            <span id="enable-2fa-text">Verify Code</span>
+            <span
+              class="spinner-border"
+              style="width: 2rem; height: 2rem; display: none"
+            ></span>
+          </button>
+        </div>
+      </div>
+      <p id="error-message"></p>
     </div>
-    <p id="error-message"></p>
 
     <script>
       $(document).ready(function () {
@@ -74,3 +129,4 @@
     </script>
   </body>
 </html>
+{% endcomment %}
