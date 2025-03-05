@@ -1,17 +1,20 @@
 from .home  import HomepageView
-from .register import RegiserView
-from .login import LoginView
+from .register import RegisterView
+from .login import LoginView, Verify2FAView, Enable2FAView, ProfileView
 from django.urls import path
 from .email_verification import EmailVerificationView
 
 
 
-urlpatterns = [
+urlpatterns = [ 
 
        path('', HomepageView.as_view(), name='home'),
-       path('register', RegiserView.as_view(), name='register'),
+       path('register', RegisterView.as_view(), name='register'),
        path('login', LoginView.as_view(), name='login'),
        path('verify-email', EmailVerificationView.as_view(), name='verify'),
+       path('verify-2fa/', Verify2FAView.as_view(), name='verify_2fa'),
+       path('enable-2fa/', Enable2FAView.as_view(), name='enable_2fa'),
+       path('profile/', ProfileView.as_view(), name='profile'),
        
 
     

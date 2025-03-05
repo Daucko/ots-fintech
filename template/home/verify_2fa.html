@@ -1,0 +1,37 @@
+{% extends "header/header.html" %} {% load static %} {% block title %} 2FA
+Verification {% endblock %} {% block content %}
+<section class="log-reg">
+  <div class="overlay pb-120">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <div class="form-box">
+            <h4>Two-Factor Authentication</h4>
+            <p>Enter the OTP from your authenticator app.</p>
+            <form id="verify-2fa-form" method="post">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-12">
+                  <div class="single-input d-flex align-items-center">
+                    <input
+                      type="text"
+                      name="otp"
+                      placeholder="Enter OTP"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="btn-area">
+                <button type="submit" class="cmn-btn">Verify OTP</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{% static 'assets/customjs/verify_2fa.js' %}"></script>
+{% endblock %}

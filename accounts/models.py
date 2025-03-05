@@ -63,12 +63,13 @@ class OTPCODE(models.Model):
         return self.user.email
     
 
-class UserAuthSettings(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="auth_settings")
-    google_auth_required = models.BooleanField(default=False)
+class GoogleAuth(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='google_auth')
+    is_enabled = models.BooleanField(default=False)  # Toggle for enabling/disabling 2FA
+    secret_key = models.CharField(max_length=32, blank=True, null=True)  # Secret key for OTP generation
 
     def __str__(self):
-        return f"{self.user.username} - Google Auth: {'Enabled' if self.google_auth_required else 'Disabled'}"
+        return f"{self.user.username} - 2FA {'Enabled' if self.is_enabled else 'Disabled'}"
 
 
 

@@ -49,7 +49,8 @@ Create Account
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">                                
-                                    <form action="#">
+                                    <form action="#" method="post" id="login-personal-form">
+                                        {% csrf_token %}
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="single-input d-flex align-items-center">
@@ -61,17 +62,23 @@ Create Account
                                                     <input type="password" class="passInput" name="password" placeholder="Password">
                                                     <img class="showPass" src="{% static 'assets/img/show-hide.png' %}" alt="image">
                                                 </div>
-                                            </div>
+                                            {% comment %} </div>
                                              {% if google_auth_required %}
                                              <div class="col-12">
                                                 <div class="single-input d-flex align-items-center">
                                                     <input type="text" name="otp_code" placeholder="Google Authenticator Code" required>
                                                 </div>
                                             </div>
-                                            {% endif %}
+                                            {% endif %} {% endcomment %}
                                         </div>
-                                        <div class="btn-area">
-                                            <button class="cmn-btn">Log in</button>
+                                           <div class="btn-area" id="btn-personal-login">
+                                            <button class="cmn-btn">
+                                            <span id="login-personal-text">Log In</span>
+                                            <span
+                                                class="spinner-border"
+                                                style="width: 2rem; height: 2rem; display: none"
+                                            ></span>
+                                            </button>
                                         </div>
                                     </form>
                                     <div class="form-bottom">
@@ -86,7 +93,8 @@ Create Account
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="business" role="tabpanel" aria-labelledby="business-tab">
-                                    <form action="#">
+                                    <form action="#" method="post">
+                                        {% csrf_token %}
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="single-input d-flex align-items-center">
@@ -100,8 +108,14 @@ Create Account
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="btn-area">
-                                            <button class="cmn-btn">Log in</button>
+                                         <div class="btn-area" id="btn-login">
+                                            <button class="cmn-btn">
+                                            <span id="login-text">Log In</span>
+                                            <span
+                                                class="spinner-border"
+                                                style="width: 2rem; height: 2rem; display: none"
+                                            ></span>
+                                            </button>
                                         </div>
                                     </form>
                                     <div class="form-bottom">

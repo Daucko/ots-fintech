@@ -1,0 +1,11 @@
+{% extends "header/header.html" %} {% load static %} {% block title %} Create
+Account {% endblock %} {% block content %}
+<h1>Profile</h1>
+<p>Welcome, {{ user.username }}!</p>
+<form method="post" action="{% url 'enable_2fa' %}">
+  {% csrf_token %}
+  <button type="submit">
+    {% if user.google_auth.is_enabled %}Disable{% else %}Enable{% endif %} 2FA
+  </button>
+</form>
+{% endblock content %}

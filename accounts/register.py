@@ -11,7 +11,7 @@ User  = get_user_model()
 
 
 
-class RegiserView(View):
+class RegisterView(View):
     def get(self, request):
         return render(request, 'home/signup.html')
     

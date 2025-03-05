@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, PersonalAccount, BusinessAccount, OTPCODE, UserAuthSettings
+from .models import User, PersonalAccount, BusinessAccount, OTPCODE, GoogleAuth 
 
 @admin.register(User)
 class AdminUser(admin.ModelAdmin):
@@ -24,7 +24,11 @@ class OTPCODEAdmin(admin.ModelAdmin):
 # class UserAuthSettingsAdmin(admin.ModelAdmin):
 #     list_display = ['user', 'email_otp', 'phone_otp', 'created_at']
 
-admin.site.register(UserAuthSettings)
+# admin.site.register(UserAuthSettings)
+
+@admin.register(GoogleAuth)
+class GoogleAuthAdmin(admin.ModelAdmin):
+    list_display = ('user', 'is_enabled')
 
 
 
