@@ -17,54 +17,39 @@ from .models import GoogleAuth
 
 User  = get_user_model()
 
-
-
-
 class Enable2FAView(View):
     def get(self, request):
-        # Render the enable_2fa.html page
-        return render(request, 'home/enable_2fa.html')
+        """Render the enable_2fa.html page when accessed via browser."""
+        return render(request, 'home/enable_2fa.html')  # Ensure correct template path
 
     def post(self, request):
+        """Handle 2FA activation via AJAX and return QR code JSON response."""
         if not request.user.is_authenticated:
             return JsonResponse({"error": "Authentication required."}, status=401)
 
         user = request.user
-        try:
-            google_auth = GoogleAuth.objects.get(user=user)
-            if google_auth.is_enabled:
-                return JsonResponse({"error": "2FA is already enabled."}, status=400)
-        except GoogleAuth.DoesNotExist:
-            pass
+        google_auth, created = GoogleAuth.objects.get_or_create(user=user)
+
+        if google_auth.is_enabled:
+            return JsonResponse({"error": "2FA is already enabled."}, status=400)
 
         # Generate a new secret key
         secret_key = pyotp.random_base32()
+        google_auth.secret_key = secret_key
+        google_auth.save()
 
-        # Create a TOTP object
+        # Generate QR Code
         totp = pyotp.TOTP(secret_key)
         provisioning_uri = totp.provisioning_uri(name=user.email, issuer_name="YourAppName")
+        qr = qrcode.make(provisioning_uri)
 
-        # Generate a QR code
-        qr = qrcode.QRCode(version=1, box_size=10, border=5)
-        qr.add_data(provisioning_uri)
-        qr.make(fit=True)
-        img = qr.make_image(fill_color="black", back_color="white")
-
-        # Save the QR code to a BytesIO object
+        # Convert to Base64
         buffer = BytesIO()
-        img.save(buffer)  # Explicitly specify the format
-        qr_code = buffer.getvalue()
+        qr.save(buffer)
+        qr_code_base64 = f"data:image/png;base64,{base64.b64encode(buffer.getvalue()).decode()}"
 
-        # Save the secret key and enable 2FA
-        GoogleAuth.objects.update_or_create(
-            user=user,
-            defaults={'is_enabled': True, 'secret_key': secret_key}
-        )
-
-        # Return the QR code as a base64-encoded image
-        qr_code_base64 = f"data:image/png;base64,{base64.b64encode(qr_code).decode()}"
         return JsonResponse({
-            "error": "2FA enabled. Scan the QR code with Google Authenticator.",
+            "message": "Scan the QR code with Google Authenticator.",
             "qr_code": qr_code_base64,
         })
 
@@ -72,6 +57,7 @@ class Verify2FAView(View):
     def get(self, request):
         # Render the 2FA verification page
         return render(request, 'home/verify_2fa.html')
+
     def post(self, request):
         if not request.user.is_authenticated:
             return JsonResponse({'error': 'Authentication required.'}, status=401)
@@ -81,17 +67,19 @@ class Verify2FAView(View):
 
         try:
             google_auth = GoogleAuth.objects.get(user=user)
-            if google_auth.is_enabled and google_auth.secret_key:
+            if google_auth.secret_key:
                 # Verify the OTP
                 totp = pyotp.TOTP(google_auth.secret_key)
                 if totp.verify(otp):
-                    return JsonResponse({'success': 'OTP verified.'})
+                    google_auth.is_enabled = True
+                    google_auth.save()
+                    return JsonResponse({'success': 'OTP verified and 2FA enabled.'})
                 else:
                     return JsonResponse({'error': 'Invalid OTP.'}, status=400)
             else:
-                return JsonResponse({'error': '2FA is not enabled for this account.'}, status=400)
+                return JsonResponse({'error': '2FA is not set up for this account.'}, status=400)
         except GoogleAuth.DoesNotExist:
-            return JsonResponse({'error': '2FA is not enabled for this account.'}, status=400)
+            return JsonResponse({'error': '2FA is not set up for this account.'}, status=400)
 
 class LoginView(View):
     def get(self, request):
@@ -120,9 +108,4 @@ class LoginView(View):
                 return JsonResponse({'success': 'Logged in Successfully!', 'redirect_url': '/home/'})
         else:
             return JsonResponse({'error': 'Invalid username or password.'}, status=400)
-        
 
-
-class ProfileView(View):
-    def get(self, request):
-        return render(request, 'home/profile.html')

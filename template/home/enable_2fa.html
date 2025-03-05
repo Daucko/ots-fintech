@@ -26,6 +26,9 @@
     <div id="qr-code-container" style="display: none">
       <p>Scan the QR code with Google Authenticator:</p>
       <img id="qr-code" src="" alt="QR Code" />
+      <button id="verify-2fa-button" style="margin-top: 20px">
+        Verify Code
+      </button>
     </div>
     <p id="error-message"></p>
 
@@ -40,21 +43,16 @@
               'X-CSRFToken': '{{ csrf_token }}',
             },
             success: function (data) {
+              console.log('Full Response:', data); // Debugging log
+
               if (data.qr_code) {
-                $('#qr-code-container').show(); // Make sure the container is visible
-                $('#qr-code').attr('src', data.qr_code); // Set the src attribute
+                $('#qr-code-container').show(); // Ensure the container is visible
+                $('#qr-code').attr('src', data.qr_code); // Set the image src
+                document.getElementById('qr-code').src = data.qr_code; // Additional direct assignment
+
                 iziToast.success({
                   title: 'Success',
-                  message:
-                    '2FA enabled successfully. Scan the QR code with Google Authenticator.',
-                  position: 'topLeft',
-                });
-                console.log('QR Code Data:', data.qr_code);
-              } else if (data.error) {
-                $('#error-message').text(data.error);
-                iziToast.error({
-                  title: 'Error',
-                  message: data.error,
+                  message: data.message, // Use "message" instead of "error"
                   position: 'topLeft',
                 });
               } else {
@@ -62,9 +60,15 @@
               }
             },
             error: function (xhr, status, error) {
+              console.log('AJAX Error:', xhr.responseText); // Debugging log for errors
               $('#error-message').text('An error occurred while enabling 2FA.');
             },
           });
+        });
+
+        // Handle the "Verify Code" button click
+        $('#verify-2fa-button').click(function () {
+          window.location.href = '/verify-2fa/';
         });
       });
     </script>
